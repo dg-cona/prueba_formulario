@@ -156,6 +156,11 @@
       margin: 0;
       background: linear-gradient(135deg, #073b77, #002554);
     }
+    .carousel-slide picture {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
     .carousel-slide img {
       width: 100%;
       height: 100%;
@@ -165,7 +170,7 @@
       transform: scale(1.012);
       transition: transform 7s ease;
     }
-    .carousel-slide.is-missing img { display: none; }
+    .carousel-slide.is-missing picture { display: none; }
     .carousel-placeholder {
       display: none;
       width: 100%;
@@ -668,21 +673,30 @@
         <div class="hero-grid">
           <!--
             CARRUSEL DE IMÁGENES
-            Imágenes PNG en assets/; el recorte responsive se realiza con CSS.
+            Imágenes PNG en assets/; cada slide selecciona su versión vertical en celular.
           -->
           <div class="carousel" id="photoCarousel" aria-roledescription="carrusel" aria-label="Imágenes de la Campaña de actualización de datos 2026">
             <div class="carousel-viewport">
               <div class="carousel-track" id="carouselTrack">
                 <figure class="carousel-slide">
-                  <img src="assets/actualizacion-01.png" alt="Imagen de la Campaña de actualización de datos 2026 de CONA" loading="eager" fetchpriority="high">
+                  <picture>
+                    <source media="(max-width: 720px)" srcset="assets/actualizacion-01-mobile.png">
+                    <img src="assets/actualizacion-01.png" alt="Campaña de actualización de datos 2026" loading="eager" fetchpriority="high">
+                  </picture>
                   <div class="carousel-placeholder">Agrega la primera imagen en<br><code>assets/actualizacion-01.png</code></div>
                 </figure>
                 <figure class="carousel-slide">
-                  <img src="assets/actualizacion-02.png" alt="Imagen de la Campaña de actualización de datos 2026 de CONA" loading="lazy">
+                  <picture>
+                    <source media="(max-width: 720px)" srcset="assets/actualizacion-02-mobile.png">
+                    <img src="assets/actualizacion-02.png" alt="Campaña de actualización de datos 2026" loading="lazy">
+                  </picture>
                   <div class="carousel-placeholder">Agrega la segunda imagen en<br><code>assets/actualizacion-02.png</code></div>
                 </figure>
                 <figure class="carousel-slide">
-                  <img src="assets/actualizacion-03.png" alt="Imagen de la Campaña de actualización de datos 2026 de CONA" loading="lazy">
+                  <picture>
+                    <source media="(max-width: 720px)" srcset="assets/actualizacion-03-mobile.png">
+                    <img src="assets/actualizacion-03.png" alt="Campaña de actualización de datos 2026" loading="lazy">
+                  </picture>
                   <div class="carousel-placeholder">Agrega la tercera imagen en<br><code>assets/actualizacion-03.png</code></div>
                 </figure>
               </div>
