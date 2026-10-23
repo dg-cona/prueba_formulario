@@ -668,29 +668,22 @@
         <div class="hero-grid">
           <!--
             CARRUSEL DE IMÁGENES
-            Escritorio: 1920 x 1080 px (16:9), WebP.
-            Móvil opcional: 1080 x 1620 px (2:3), WebP, usando el sufijo -mobile.
-            Si no existe la versión móvil, se usa automáticamente la imagen de escritorio.
-            Coloca los archivos en: assets/carrusel/
+            Imágenes PNG en assets/; el recorte responsive se realiza con CSS.
           -->
           <div class="carousel" id="photoCarousel" aria-roledescription="carrusel" aria-label="Imágenes de la Campaña de actualización de datos 2026">
             <div class="carousel-viewport">
               <div class="carousel-track" id="carouselTrack">
                 <figure class="carousel-slide">
-                  <img src="assets/carrusel/actualizacion-01.webp" data-mobile-src="assets/carrusel/actualizacion-01-mobile.webp" alt="Imagen de la Campaña de actualización de datos 2026 de CONA" loading="eager" fetchpriority="high">
-                  <div class="carousel-placeholder">Agrega la primera imagen en<br><code>assets/carrusel/actualizacion-01.webp</code></div>
+                  <img src="assets/actualizacion-01.png" alt="Imagen de la Campaña de actualización de datos 2026 de CONA" loading="eager" fetchpriority="high">
+                  <div class="carousel-placeholder">Agrega la primera imagen en<br><code>assets/actualizacion-01.png</code></div>
                 </figure>
                 <figure class="carousel-slide">
-                  <img src="assets/carrusel/actualizacion-02.webp" data-mobile-src="assets/carrusel/actualizacion-02-mobile.webp" alt="Imagen de la Campaña de actualización de datos 2026 de CONA" loading="lazy">
-                  <div class="carousel-placeholder">Agrega la segunda imagen en<br><code>assets/carrusel/actualizacion-02.webp</code></div>
+                  <img src="assets/actualizacion-02.png" alt="Imagen de la Campaña de actualización de datos 2026 de CONA" loading="lazy">
+                  <div class="carousel-placeholder">Agrega la segunda imagen en<br><code>assets/actualizacion-02.png</code></div>
                 </figure>
                 <figure class="carousel-slide">
-                  <img src="assets/carrusel/actualizacion-03.webp" data-mobile-src="assets/carrusel/actualizacion-03-mobile.webp" alt="Imagen de la Campaña de actualización de datos 2026 de CONA" loading="lazy">
-                  <div class="carousel-placeholder">Agrega la tercera imagen en<br><code>assets/carrusel/actualizacion-03.webp</code></div>
-                </figure>
-                <figure class="carousel-slide">
-                  <img src="assets/carrusel/actualizacion-04.webp" data-mobile-src="assets/carrusel/actualizacion-04-mobile.webp" alt="Imagen de la Campaña de actualización de datos 2026 de CONA" loading="lazy">
-                  <div class="carousel-placeholder">Agrega la cuarta imagen en<br><code>assets/carrusel/actualizacion-04.webp</code></div>
+                  <img src="assets/actualizacion-03.png" alt="Imagen de la Campaña de actualización de datos 2026 de CONA" loading="lazy">
+                  <div class="carousel-placeholder">Agrega la tercera imagen en<br><code>assets/actualizacion-03.png</code></div>
                 </figure>
               </div>
             </div>
@@ -909,22 +902,7 @@
 
     carouselSlides.forEach((slide, index) => {
       const img = slide.querySelector("img");
-      const desktopSrc = img.getAttribute("src");
-      const mobileSrc = img.dataset.mobileSrc;
-
-      // En pantallas pequeñas intenta usar una composición vertical específica.
-      // Si ese archivo no existe, conserva sin errores la fotografía de escritorio.
-      if (mobileSrc && window.matchMedia("(max-width: 720px)").matches) {
-        const mobileProbe = new Image();
-        mobileProbe.onload = () => { img.src = mobileSrc; };
-        mobileProbe.src = mobileSrc;
-      }
-
       img.addEventListener("error", () => {
-        if (img.src !== new URL(desktopSrc, window.location.href).href) {
-          img.src = desktopSrc;
-          return;
-        }
         slide.classList.add("is-missing");
       });
       if (img.complete && img.naturalWidth === 0) slide.classList.add("is-missing");
