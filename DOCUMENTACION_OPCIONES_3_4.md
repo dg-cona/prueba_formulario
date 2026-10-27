@@ -10,10 +10,18 @@ Las opciones nuevas permiten actualizar datos personales, domiciliarios, laboral
 |---|---|---|
 | Identificación y contacto | Tipo y número de documento, nombres, apellidos, fecha de nacimiento, celular, correo | Todo obligatorio salvo correo. DNI: 8 dígitos; carné de extranjería, pasaporte y otros: patrón alfanumérico apropiado al tipo. Fecha válida y no futura. Celular móvil peruano: 9 dígitos iniciado en 9. Correo validado si se completa. |
 | Domicilio | Dirección, departamento, provincia, distrito y UBIGEO | Todos obligatorios. Los selectores dependientes evitan combinar ubicaciones de distintas jurisdicciones. La dirección acepta formatos libres. |
-| Información laboral | Categoría, especialidad, situación de trabajo en obra, RUC, proyecto u obra | Categorías: Peón, Oficial y Operario. Especialidad obligatoria como texto libre. Si trabaja en obra, RUC de 11 dígitos y nombre de proyecto/obra obligatorios. El RUC se valida estructuralmente, sin acreditar existencia o vigencia. |
+| Información laboral | Categoría, especialidad, situación de trabajo en obra, RUC o nombre del empleador, proyecto u obra | Categorías: Peón, Oficial y Operario. Especialidad obligatoria como texto libre con sugerencias abiertas. Si trabaja en obra, debe declarar el RUC de 11 dígitos o marcar que lo desconoce y completar el nombre de la empresa; el proyecto/obra sigue siendo obligatorio. Si no trabaja, se serializan nulos para empleador y obra. |
 | Familia y autorización | Cantidad de hijos menores, edad y sexo de cada hijo, consentimiento | Cantidad desde cero; edad entera de 0 a 17 y sexo obligatorio para cada hijo. No se solicitan nombres ni documentos de los menores. Consentimiento obligatorio. |
 
 La fecha se captura con el control nativo `input type=date`, que deja al navegador/dispositivo presentar su selector táctil de año, mes y día y permite escribirla según la plataforma. El valor interno se conserva como `AAAA-MM-DD`; las comparaciones no convierten la fecha a medianoche UTC. El navegador rechaza fechas de calendario imposibles y el límite máximo es la fecha local actual.
+
+## Presentación y carrusel
+
+Las opciones 3 y 4 reutilizan el carrusel y el orden de piezas de la opción 2: `banner-01` y `banner-02`, con sus variantes móviles. Incluye avance automático cada cinco segundos, botones anterior/siguiente, indicadores, teclado, gesto táctil, pausa al enfocar o pasar el puntero y una alternativa visible si falla una imagen. Respeta la preferencia de movimiento reducido.
+
+Ambas páginas muestran los textos de campaña acordados: «REGÍSTRATE Y PARTICIPA», la descripción sobre contacto y beneficios de CONA, el mensaje del sorteo de electrodomésticos y «* Campos obligatorios.». La sección Domicilio usa dirección de una línea que crece al escribir y presenta Departamento, Provincia y Distrito en tres columnas en escritorio y una columna en celular. En Opción 3, los títulos de Domicilio e Información laboral no repiten la numeración del indicador de pasos.
+
+En Información laboral, Categoría y Especialidad se alinean en la primera fila. La situación laboral se selecciona con radios visibles y accesibles. Al responder Sí aparecen los datos del empleador y la obra; al responder No se ocultan y dejan de ser obligatorios. Si se desconoce el RUC, se ofrece el campo obligatorio para el nombre de la empresa. Los campos mantienen sus valores al alternar las respuestas, pero el envío de demostración serializa únicamente los campos correspondientes a la respuesta final.
 
 ## Diferencias frente a las propuestas originales
 
@@ -41,6 +49,8 @@ La validación arma en memoria el objeto siguiente, con la misma forma en ambas 
   "categoria": "",
   "especialidad": "",
   "ruc_empleador": null,
+  "nombre_empleador": null,
+  "no_conoce_ruc_empleador": false,
   "proyecto_obra": null,
   "hijos_menores": 0,
   "hijos": [],
@@ -67,3 +77,5 @@ Antes de integrar almacenamiento, definir y documentar el endpoint, controles de
 - `opcion-4.html`: página única por secciones.
 - `assets/formulario-ampliado.css` y `assets/formulario-ampliado.js`: recursos comunes.
 - `assets/conafovicer-logo.png`: logotipo reutilizado de la propuesta existente.
+
+Las opciones 3 y 4 llaman el mismo inicializador del carrusel, validaciones y serialización. La única diferencia de presentación es la navegación: cuatro pasos frente a desplazamiento de página única.
